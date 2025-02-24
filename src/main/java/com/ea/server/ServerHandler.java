@@ -21,6 +21,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Order> {
         }
         Report response = orderBook.processMarketOrder(order);
         System.out.println("[SERVER] processed order: " + response);
+        System.out.println("[SERVER] orderBook status: " + orderBook);
         ctx.writeAndFlush(response);
     }
 }

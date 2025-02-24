@@ -28,7 +28,7 @@ public class Client {
                                     new StringDecoder(),   // Converts incoming bytes → String
                                     new OrderEncoder(),    // Converts Order object → JSON String before sending
                                     new ReportDecoder(),   // Converts received JSON String → Report object
-                                    new ClientHandler()    // Handles the processed Report response
+                                    new ClientHandler(group)    // Handles the processed Report response
                             );
                         }
                     });
