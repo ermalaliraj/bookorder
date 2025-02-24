@@ -1,8 +1,8 @@
-package com.ea;
+package com.ea.client;
 
-import com.ea.decoder.OrderEncoder;
-import com.ea.decoder.ReportDecoder;
-import com.ea.model.Order;
+import com.ea.coder.OrderEncoder;
+import com.ea.coder.ReportDecoder;
+import com.ea.engine.Order;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -38,10 +38,5 @@ public class Client {
         } finally {
             group.shutdownGracefully();
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        Client client = new Client();
-        client.sendOrder("localhost", 8080, new Order(Order.Type.BUY, 10, 23, "1233"));
     }
 }

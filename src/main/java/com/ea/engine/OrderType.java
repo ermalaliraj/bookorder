@@ -1,4 +1,4 @@
-package com.ea.model;
+package com.ea.engine;
 
 public enum OrderType {
     BUY, SELL

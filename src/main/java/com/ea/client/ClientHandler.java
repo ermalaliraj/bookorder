@@ -1,6 +1,6 @@
-package com.ea;
+package com.ea.client;
 
-import com.ea.model.Report;
+import com.ea.engine.Report;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

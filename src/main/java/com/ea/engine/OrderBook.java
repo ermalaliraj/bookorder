@@ -1,34 +1,42 @@
-package com.ea.model;
+package com.ea.engine;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class OrderBook {
     private final PriorityQueue<Order> buyOrders = new PriorityQueue<>(Comparator.comparingInt(o -> -o.price)); // Highest price first, FIFO on same price
     private final PriorityQueue<Order> sellOrders = new PriorityQueue<>(Comparator.comparingInt(o -> o.price)); // Lowest price first, FIFO on same price
 
+    public OrderBook(List<Order> buyOrders, List<Order> sellOrders) {
+        this.buyOrders.addAll(buyOrders);
+        this.sellOrders.addAll(sellOrders);
+    }
+
     public synchronized Report processMarketOrder(Order order) {
-        if (order.type == Order.Type.BUY) {
+        if (order.type == OrderType.BUY) {
             return matchSellOrder(order);
-        } else if (order.type == Order.Type.SELL) {
+        } else if (order.type == OrderType.SELL) {
             return matchBuyPrice(order);
         } else {
             throw new IllegalArgumentException("Not known order type! Order: " + order);
         }
     }
-    
+
     private Report matchSellOrder(Order order) {
         while (!sellOrders.isEmpty()) {
             Order bestSell = sellOrders.peek(); // Get the lowest ASK price
             if (bestSell.price > order.price) {
-                break; // Cannot match, best ASK is too high
+                System.out.println("Cannot match! Best ASK " + bestSell.price + " is higher than the order price " + order.price);
+                break;
             }
             if (bestSell.quantity == order.quantity) { // Exact match
-                sellOrders.poll(); // Remove matched sell order
-                System.out.println("BUY FILLED at $" + bestSell.price + " for " + order.quantity + " units.");
+                sellOrders.poll();
+                System.out.println("BUY FILLED at $" + bestSell.price + " for " + order.quantity + " units");
                 return new Report(ReportType.exe_report, sellOrders.size(), order.price, order.quantity, order.accountId, ReportStatus.FILLED);
             }
-            break; // No full match found
+            System.out.println("No full match found! Order quantity is " + bestSell.quantity + ", you are requesting to buy " + order.quantity);
+            break;
         }
         return new Report(ReportType.exe_report, sellOrders.size(), null, null, order.accountId, ReportStatus.REJECTED);
     }
@@ -37,24 +45,25 @@ public class OrderBook {
         while (!buyOrders.isEmpty()) {
             Order bestBuy = buyOrders.peek(); // Get the highest BID price
             if (bestBuy.price < order.price) {
-                break; // Cannot match, best BID is too low
+                System.out.println("Cannot match! Best BID " + bestBuy.price + " is lower than the order price " + order.price);
+                break;
             }
             if (bestBuy.quantity == order.quantity) { // Exact match
-                buyOrders.poll(); // Remove matched buy order
+                buyOrders.poll();
                 System.out.println("SELL FILLED at $" + bestBuy.price + " for " + order.quantity + " units.");
                 return new Report(ReportType.exe_report, buyOrders.size(), order.price, order.quantity, order.accountId, ReportStatus.FILLED);
             }
-            break; // No full match found
+            System.out.println("No full match found! Order quantity is " + bestBuy.quantity + ", you are requesting to sell " + order.quantity);
+            break;
         }
-        return new Report(ReportType.exe_report, buyOrders.size(), order.price, order.quantity, order.accountId, ReportStatus.FILLED);
+        return new Report(ReportType.exe_report, buyOrders.size(), order.price, order.quantity, order.accountId, ReportStatus.REJECTED);
     }
-    
-    public synchronized void addInitialOrders() {
-        buyOrders.add(new Order(Order.Type.BUY, 10, 1000, "1001"));
-        buyOrders.add(new Order(Order.Type.BUY, 20, 1003, "1002"));
-        buyOrders.add(new Order(Order.Type.BUY, 30, 1007, "1003"));
-        buyOrders.add(new Order(Order.Type.BUY, 40, 1009, "1004"));
-        sellOrders.add(new Order(Order.Type.SELL, 50, 1009, "2001"));
-        sellOrders.add(new Order(Order.Type.SELL, 23, 10123, "2002"));
+
+    @Override
+    public String toString() {
+        return "OrderBook{" +
+                "buyOrders=" + buyOrders +
+                ", sellOrders=" + sellOrders +
+                '}';
     }
 }

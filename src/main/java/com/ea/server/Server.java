@@ -1,8 +1,8 @@
-package com.ea;
+package com.ea.server;
 
-import com.ea.decoder.OrderDecoder;
-import com.ea.decoder.ReportEncoder;
-import com.ea.model.OrderBook;
+import com.ea.coder.OrderDecoder;
+import com.ea.coder.ReportEncoder;
+import com.ea.engine.OrderBook;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -14,9 +14,11 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
 public class Server {
-    public final OrderBook orderBook = new OrderBook();
-    {
-        orderBook.addInitialOrders();
+
+    private OrderBook orderBook;
+
+    public Server(OrderBook orderBook) {
+        this.orderBook = orderBook;
     }
 
     public void start(int port) throws InterruptedException {
@@ -45,16 +47,5 @@ public class Server {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        new Thread(() -> {
-            try {
-                new Server().start(8080);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-        Thread.sleep(2000);
     }
 }
