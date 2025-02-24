@@ -15,8 +15,11 @@ public class OrderMatchingStrategyBuy implements OrderMatchingStrategy {
                 System.out.println("[SERVER] Cannot match! Best ASK " + bestSell.getPrice() + " is higher than " + order.getPrice());
                 break;
             }
-            if (bestSell.getQuantity() == order.getQuantity()) {
-                orderBook.getSellOrders().poll();
+            if (bestSell.getQuantity() >= order.getQuantity()) {
+                bestSell.setQuantity(bestSell.getQuantity() - order.getQuantity());
+                if (bestSell.getQuantity() == 0) {
+                    orderBook.getSellOrders().poll(); // Remove fully matched order
+                }
                 System.out.println("[SERVER] BUY FILLED at $" + bestSell.getPrice() + " for " + order.getQuantity() + " units");
                 return new Report(ReportType.exe_report, orderBook.getSellOrders().size(), order.getPrice(), order.getQuantity(), order.getAccountId(), ReportStatus.FILLED);
             }

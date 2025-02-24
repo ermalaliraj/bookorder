@@ -29,6 +29,54 @@ public class Report {
         this.status = status;
     }
 
+    public ReportType getType() {
+        return type;
+    }
+
+    public void setType(ReportType type) {
+        this.type = type;
+    }
+
+    public Integer getInitialQuantity() {
+        return initialQuantity;
+    }
+
+    public void setInitialQuantity(Integer initialQuantity) {
+        this.initialQuantity = initialQuantity;
+    }
+
+    public Integer getExecutedPrice() {
+        return executedPrice;
+    }
+
+    public void setExecutedPrice(Integer executedPrice) {
+        this.executedPrice = executedPrice;
+    }
+
+    public Integer getExecutedQuantity() {
+        return executedQuantity;
+    }
+
+    public void setExecutedQuantity(Integer executedQuantity) {
+        this.executedQuantity = executedQuantity;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public ReportStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReportStatus status) {
+        this.status = status;
+    }
+
     public String toString() {
         return "Report{" +
                 "type=" + type +
