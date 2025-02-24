@@ -2,6 +2,7 @@ package com.ea.model;
 
 import com.ea.engine.OrderMatchingStrategy;
 import com.ea.engine.OrderMatchingStrategyBuy;
+import com.ea.engine.OrderMatchingStrategyFactory;
 import com.ea.engine.OrderMatchingStrategySell;
 
 import java.util.Comparator;
@@ -18,9 +19,7 @@ public class OrderBook {
     }
 
     public synchronized Report processMarketOrder(Order order) {
-        OrderMatchingStrategy orderMatching = order.getType() == OrderType.BUY ?
-                new OrderMatchingStrategyBuy() :
-                new OrderMatchingStrategySell();
+        OrderMatchingStrategy orderMatching = OrderMatchingStrategyFactory.getStrategy(order.getType());
         Report report = orderMatching.match(this, order);
         if (report.getStatus() == ReportStatus.REJECTED) {
             if (order.getType() == OrderType.BUY) {
