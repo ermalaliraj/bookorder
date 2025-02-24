@@ -1,9 +1,8 @@
 package com.ea;
 
+import com.ea.decoder.OrderEncoder;
+import com.ea.decoder.ReportDecoder;
 import com.ea.model.Order;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -24,19 +23,17 @@ public class Client {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            ch.pipeline().addLast(new StringDecoder(), new StringEncoder(), new ClientHandler());
+                            ch.pipeline().addLast(
+                                    new StringEncoder(),   // Converts outgoing String → bytes
+                                    new StringDecoder(),   // Converts incoming bytes → String
+                                    new OrderEncoder(),    // Converts Order object → JSON String before sending
+                                    new ReportDecoder(),   // Converts received JSON String → Report object
+                                    new ClientHandler()    // Handles the processed Report response
+                            );
                         }
                     });
             Channel channel = bootstrap.connect(host, port).sync().channel();
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                String json = objectMapper.writeValueAsString(order);
-                objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-                objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-                channel.writeAndFlush(json);
-            } catch (JsonProcessingException e) {
-                System.err.println("Error serializing order to JSON: " + e.getMessage());
-            }
+            channel.writeAndFlush(order);
             channel.closeFuture().sync();
         } finally {
             group.shutdownGracefully();

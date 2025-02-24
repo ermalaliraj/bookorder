@@ -35,4 +35,14 @@ public class Order {
         this.quantity = quantity;
         this.accountId = accountId;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "type=" + type +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", accountId=" + accountId +
+                "}";
+    }
 }
