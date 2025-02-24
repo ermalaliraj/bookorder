@@ -45,6 +45,6 @@ public class Client {
 
     public static void main(String[] args) throws InterruptedException {
         Client client = new Client();
-        client.sendOrder("localhost", 8080, new Order(Order.Type.BUY, 10, "12`33"));
+        client.sendOrder("localhost", 8080, new Order(Order.Type.BUY, 10, 23, "1233"));
     }
 }

@@ -27,7 +27,6 @@ public class Order {
         this.accountId = accountId;
     }
 
-    @JsonCreator
     public Order(
             @JsonProperty("type") Type type,
             @JsonProperty("quantity") int quantity,

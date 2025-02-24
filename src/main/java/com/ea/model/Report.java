@@ -28,4 +28,15 @@ public class Report {
         this.accountId = accountId;
         this.status = status;
     }
+
+    public String toString() {
+        return "Report{" +
+                "type=" + type +
+                ", initialQuantity=" + initialQuantity +
+                ", executedPrice=" + executedPrice +
+                ", executedQuantity=" + executedQuantity +
+                ", accountId=" + accountId +
+                ", status=" + status +
+                '}';
+    }
 }
