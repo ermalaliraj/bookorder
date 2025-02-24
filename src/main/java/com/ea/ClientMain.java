@@ -1,8 +1,8 @@
 package com.ea;
 
 import com.ea.client.Client;
-import com.ea.engine.Order;
-import com.ea.engine.OrderType;
+import com.ea.model.Order;
+import com.ea.model.OrderType;
 
 public class ClientMain {
     public static void main(String[] args) throws InterruptedException {

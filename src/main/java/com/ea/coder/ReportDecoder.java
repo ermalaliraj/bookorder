@@ -1,6 +1,6 @@
 package com.ea.coder;
 
-import com.ea.engine.Report;
+import com.ea.model.Report;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;

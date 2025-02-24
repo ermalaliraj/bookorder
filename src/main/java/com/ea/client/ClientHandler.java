@@ -1,6 +1,6 @@
 package com.ea.client;
 
-import com.ea.engine.Report;
+import com.ea.model.Report;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.SimpleChannelInboundHandler;

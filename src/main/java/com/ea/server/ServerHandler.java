@@ -1,8 +1,8 @@
 package com.ea.server;
 
-import com.ea.engine.Order;
-import com.ea.engine.OrderBook;
-import com.ea.engine.Report;
+import com.ea.model.Order;
+import com.ea.model.OrderBook;
+import com.ea.model.Report;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

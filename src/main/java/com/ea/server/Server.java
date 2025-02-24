@@ -2,7 +2,7 @@ package com.ea.server;
 
 import com.ea.coder.OrderDecoder;
 import com.ea.coder.ReportEncoder;
-import com.ea.engine.OrderBook;
+import com.ea.model.OrderBook;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

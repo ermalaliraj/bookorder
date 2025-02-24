@@ -1,4 +1,4 @@
-package com.ea.engine;
+package com.ea.model;
 
 public enum ReportStatus {
     FILLED, REJECTED

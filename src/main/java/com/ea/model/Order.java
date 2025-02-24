@@ -1,4 +1,4 @@
-package com.ea.engine;
+package com.ea.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -6,10 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Order {
-    OrderType type;
-    int quantity;
-    int price;
-    String accountId;
+    private OrderType type;
+    private int quantity;
+    private int price;
+    private String accountId;
 
     @JsonCreator
     public Order(
@@ -21,6 +21,22 @@ public class Order {
         this.quantity = quantity;
         this.price = price;
         this.accountId = accountId;
+    }
+
+    public OrderType getType() {
+        return type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getAccountId() {
+        return accountId;
     }
 
     @Override

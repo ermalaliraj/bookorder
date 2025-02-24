@@ -1,4 +1,4 @@
-package com.ea.engine;
+package com.ea.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
