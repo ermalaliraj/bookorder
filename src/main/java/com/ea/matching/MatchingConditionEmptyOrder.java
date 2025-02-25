@@ -10,6 +10,7 @@ public class MatchingConditionEmptyOrder implements MatchingCondition {
     @Override
     public Report process(OrderBook orderBook, Order orderCandidate, Order order) {
         if (orderCandidate == null) {
+            System.out.println("[SERVER] Cannot match! MatchingConditionEmptyOrder. orderCandidate: null, order: " + order);
             return new Report(ReportType.exe_report,
                     orderBook.getBuyOrders().size(),
                     null,
