@@ -16,7 +16,7 @@ public class OrderBook {
         this.sellOrders.addAll(sellOrders);
     }
 
-    public synchronized Report processMarketOrder(Order order) {
+    public synchronized Report processOrder(Order order) {
         OrderMatching orderMatching = OrderMatchingFactory.getMatcher(order.getType()); // BUY or SELL
         Report report = orderMatching.match(this, order);
         //TODO do we need to pass the order from one list to the other?

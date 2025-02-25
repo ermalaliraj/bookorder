@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OrderMatchingFactory {
-    private static final Map<OrderType, OrderMatching> strategyMap = new HashMap<>();
+    private static final Map<OrderType, OrderMatching> matchersMap = new HashMap<>();
 
     static {
-        strategyMap.put(OrderType.BUY, new OrderMatchingBuy());
-        strategyMap.put(OrderType.SELL, new OrderMatchingSell());
+        matchersMap.put(OrderType.BUY, new OrderMatchingBuy());
+        matchersMap.put(OrderType.SELL, new OrderMatchingSell());
     }
 
     public static OrderMatching getMatcher(OrderType orderType) {
-        return strategyMap.get(orderType);
+        return matchersMap.get(orderType);
     }
 }

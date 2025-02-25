@@ -19,7 +19,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Order> {
         if (order == null) {
             throw new IllegalArgumentException("Received null order!");
         }
-        Report response = orderBook.processMarketOrder(order);
+        Report response = orderBook.processOrder(order);
         System.out.println("[SERVER] processed order: " + response);
         System.out.println("[SERVER] orderBook status: " + orderBook);
         ctx.writeAndFlush(response);

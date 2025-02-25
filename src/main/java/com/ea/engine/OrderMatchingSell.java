@@ -15,8 +15,7 @@ public class OrderMatchingSell implements OrderMatching {
     private final List<MatchingCondition> conditions = List.of(
             new MatchingConditionEmptyOrder(),
             new SellMatchingConditionPrice(),
-            new SellMatchingConditionQuantity(),
-            new MatchingConditionDefault()
+            new SellMatchingConditionQuantity()
     );
 
     @Override
