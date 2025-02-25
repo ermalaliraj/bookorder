@@ -3,8 +3,8 @@ package com.ea.matching;
 import com.ea.model.Order;
 import com.ea.model.OrderBook;
 import com.ea.model.Report;
-import com.ea.model.ReportStatus;
-import com.ea.model.ReportType;
+
+import static com.ea.model.ReportFactory.createFilledReport;
 
 public class SellMatchingConditionQuantity implements MatchingCondition {
     @Override
@@ -15,12 +15,11 @@ public class SellMatchingConditionQuantity implements MatchingCondition {
                 orderBook.getBuyOrders().poll(); // Remove fully matched order
             }
             System.out.println("[SERVER] SELL FILLED at $" + orderCandidate.getPrice() + " for " + order.getQuantity() + " units");
-            return new Report(ReportType.exe_report, 
-                    orderBook.getBuyOrders().size(), 
-                    order.getPrice(), 
-                    order.getQuantity(), 
-                    order.getAccountId(), 
-                    ReportStatus.FILLED);
+            return createFilledReport(
+                    orderBook.getBuyOrders().size(),
+                    orderCandidate.getPrice(),
+                    orderCandidate.getQuantity(),
+                    order.getAccountId());
         }
         return null;
     }
