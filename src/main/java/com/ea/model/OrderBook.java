@@ -1,9 +1,7 @@
 package com.ea.model;
 
-import com.ea.engine.OrderMatchingStrategy;
-import com.ea.engine.OrderMatchingStrategyBuy;
-import com.ea.engine.OrderMatchingStrategyFactory;
-import com.ea.engine.OrderMatchingStrategySell;
+import com.ea.engine.OrderMatching;
+import com.ea.engine.OrderMatchingFactory;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,15 +17,16 @@ public class OrderBook {
     }
 
     public synchronized Report processMarketOrder(Order order) {
-        OrderMatchingStrategy orderMatching = OrderMatchingStrategyFactory.getStrategy(order.getType());
+        OrderMatching orderMatching = OrderMatchingFactory.getMatcher(order.getType()); // BUY or SELL
         Report report = orderMatching.match(this, order);
-        if (report.getStatus() == ReportStatus.REJECTED) {
-            if (order.getType() == OrderType.BUY) {
-                buyOrders.add(order);
-            } else {
-                sellOrders.add(order);
-            }
-        }
+        //TODO do we need to pass the order from one list to the other?
+//        if (report.getStatus() == ReportStatus.REJECTED) {
+//            if (order.getType() == OrderType.BUY) {
+//                buyOrders.add(order);
+//            } else {
+//                sellOrders.add(order);
+//            }
+//        }
         return report;
     }
 
