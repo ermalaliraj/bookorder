@@ -22,13 +22,12 @@ public class OrderMatchingBuy implements OrderMatching {
         Iterator<Order> sellOrdersIterator = orderBook.getSellOrders().iterator();
         while (sellOrdersIterator.hasNext()) {
             Order bestSeller = sellOrdersIterator.next();
-            Report processResult = processConditions(conditions, orderBook, bestSeller, order);
+            Report processResult = processConditions(conditions, sellOrdersIterator, orderBook, bestSeller, order);
             if (processResult != null) {
-                orderBook.getSellOrders().removeIf(o -> o.getQuantity() == 0);
                 return processResult;
             }
         }
-        return new MatchingConditionDefault().process(orderBook, null, order);
+        return new MatchingConditionDefault().process(null, orderBook, null, order);
     }
 
 }

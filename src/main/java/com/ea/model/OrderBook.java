@@ -9,10 +9,10 @@ import java.util.TreeSet;
 public class OrderBook {
 
     private final TreeSet<Order> buyOrders = new TreeSet<>((Order o1, Order o2) -> { // Highest price first, FIFO on same price
-        return (o1.getPrice() > o2.getPrice()) ? -1 : 1;
+       return (o1.getPrice() > o2.getPrice()) ? -1 : 1;
     });
     private final TreeSet<Order> sellOrders = new TreeSet<>((Order o1, Order o2) -> { // Lowest price first, FIFO on same price
-        return (o1.getPrice() < o2.getPrice()) ? -1 : 1;
+     return (o1.getPrice() < o2.getPrice()) ? -1 : 1;
     });
 
     public OrderBook(List<Order> buyOrders, List<Order> sellOrders) {
