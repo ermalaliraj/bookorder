@@ -9,7 +9,7 @@ import com.ea.model.ReportType;
 public class MatchingConditionDefault implements MatchingCondition {
     @Override
     public Report process(OrderBook orderBook, Order orderCandidate, Order order) {
-        System.out.println("[SERVER] Cannot match! Default Condition. orderCandidate: " + orderCandidate + ", order: " + order);
+        System.out.println("[SERVER] Cannot match! Default Condition. Order: " + order);
         return new Report(ReportType.exe_report,
                 orderBook.getBuyOrders().size(),
                 null,

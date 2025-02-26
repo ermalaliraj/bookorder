@@ -11,7 +11,7 @@ public class SellMatchingConditionPrice implements MatchingCondition {
     public Report process(OrderBook orderBook, Order orderCandidate, Order order) {
         if (orderCandidate.getPrice() < order.getPrice()) {
             System.out.println("[SERVER] Cannot match! Best BID " + orderCandidate.getPrice() + " is lower than " + order.getPrice());
-            return createRejectReport(orderBook.getBuyOrders().size(), order.getAccountId());
+            return createRejectReport(order.getQuantity(), order.getAccountId());
         }
         return null;
     }
